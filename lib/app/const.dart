@@ -10,4 +10,5 @@ class Const {
 
 class ColorManager {
   static Color mainColor = const Color.fromRGBO(131, 169, 231, 1);
+  static Color buttonColor = const Color.fromRGBO(79, 87, 98, 1);
 }

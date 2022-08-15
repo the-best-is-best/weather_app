@@ -40,6 +40,12 @@ class MyApp extends StatelessWidget {
                         statusBarIconBrightness: Brightness.light)
                     : null),
             brightness: Brightness.dark,
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                  primary: ColorManager.buttonColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12))),
+            ),
           ),
           home: const WeatherView()),
     );
