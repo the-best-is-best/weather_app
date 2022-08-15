@@ -1,9 +1,13 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
-import 'package:weather_app/app/extensions/extension_double.dart';
+import 'package:weather_app/app/const.dart';
+import 'package:weather_app/app/extensions/extension_num.dart';
+import 'package:weather_app/app/extensions/extention_date.dart';
 import 'package:weather_app/presentation/weather/cubit/weather_cubit.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 import '../../../app/components/my_loading.dart';
 import '../../../gen/assets.gen.dart';
@@ -39,8 +43,9 @@ class WeatherView extends StatelessWidget {
                             snap: true,
                             pinned: true,
                             floating: true,
-                            expandedHeight: 200.0,
+                            expandedHeight: 150.0,
                             flexibleSpace: FlexibleSpaceBar(
+                              titlePadding: const EdgeInsets.only(left: 40.0),
                               title: MyText(
                                   text: weatherCubit.weatherModel!.cityName),
                               background: Column(
@@ -54,7 +59,10 @@ class WeatherView extends StatelessWidget {
                                             .kelvinToCelsius(),
                                         style: const TextStyle(fontSize: 50),
                                       ),
-                                      Lottie.asset(const $AssetsJsonGen().moon,
+                                      Lottie.asset(
+                                          DateTime.now().isSunsetOrSunrise()
+                                              ? const $AssetsJsonGen().sun
+                                              : const $AssetsJsonGen().moon,
                                           width: 150),
                                     ],
                                   ),
@@ -64,7 +72,8 @@ class WeatherView extends StatelessWidget {
                           ),
                           SliverToBoxAdapter(
                             child: Padding(
-                              padding: const EdgeInsets.all(12.0),
+                              padding: const EdgeInsets.only(
+                                  left: 20, top: 12, right: 20),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -74,8 +83,96 @@ class WeatherView extends StatelessWidget {
                                             .kelvinToCelsius() +
                                         " / ${weatherCubit.weatherModel!.tempMax.kelvinToCelsius()}" +
                                         " Feels like ${weatherCubit.weatherModel!.feelsLike.kelvinToCelsius()}",
-                                    style: const TextStyle(fontSize: 15),
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w300),
                                   ),
+                                  const SizedBox(height: 10),
+                                  MyText(
+                                    text: DateTime.now().isSunsetOrSunrise()
+                                        ? "Sun ${DateTime.now().toTime()}"
+                                        : "Moon ${DateTime.now().toTime()}",
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  MyText(
+                                    text:
+                                        weatherCubit.weatherModel!.description,
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  SizedBox(
+                                    height: 50,
+                                    child: Card(
+                                      color: ColorManager.mainColor
+                                          .withOpacity(.5),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              const Icon(WeatherIcons.humidity,
+                                                  size: 15),
+                                              const SizedBox(width: 5),
+                                              MyText(
+                                                text:
+                                                    '${weatherCubit.weatherModel!.humidity}',
+                                                style: const TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
+                                              const SizedBox(width: 15),
+                                              Row(
+                                                children: [
+                                                  const Icon(WeatherIcons.wind,
+                                                      size: 15),
+                                                  const SizedBox(width: 5),
+                                                  MyText(
+                                                    text:
+                                                        '${weatherCubit.weatherModel!.speed} m/s',
+                                                    style: const TextStyle(
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.w300),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(width: 15),
+                                              Row(
+                                                children: [
+                                                  const FaIcon(
+                                                      FontAwesomeIcons
+                                                          .boltLightning,
+                                                      size: 15),
+                                                  const SizedBox(width: 5),
+                                                  MyText(
+                                                    text:
+                                                        '${weatherCubit.weatherModel!.pressure} hPa',
+                                                    style: const TextStyle(
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.w300),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),

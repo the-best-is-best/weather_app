@@ -34,12 +34,15 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  font_awesome_flutter: ^10.1.0
   get_it: ^7.2.0
   internet_connection_checker: ^0.0.1+4
+  intl: ^0.17.0
   json_annotation: ^4.6.0
   lottie: ^1.4.1
   pretty_dio_logger: ^1.1.1
   retrofit: ^3.0.1+1
+  weather_icons: ^3.0.0
 
 dev_dependencies:
   build_runner: ^2.1.11
@@ -63,7 +66,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/json/
-    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

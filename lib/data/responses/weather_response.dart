@@ -7,8 +7,10 @@ class WeatherResponse {
   @JsonKey(name: "name")
   final String? cityName;
   final List<Weather>? weather;
+  final Wind? wind;
   final Main? main;
-  WeatherResponse({
+  WeatherResponse(
+    this.wind, {
     this.id,
     this.cityName,
     this.weather,
@@ -28,6 +30,16 @@ class Weather {
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return _$WeatherFromJson(json);
+  }
+}
+
+@JsonSerializable()
+class Wind {
+  final num? speed;
+  final num? deg;
+  Wind({this.speed, this.deg});
+  factory Wind.fromJson(Map<String, dynamic> json) {
+    return _$WindFromJson(json);
   }
 }
 

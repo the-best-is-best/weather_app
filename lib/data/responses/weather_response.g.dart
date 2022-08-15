@@ -8,6 +8,9 @@ part of 'weather_response.dart';
 
 WeatherResponse _$WeatherResponseFromJson(Map<String, dynamic> json) =>
     WeatherResponse(
+      json['wind'] == null
+          ? null
+          : Wind.fromJson(json['wind'] as Map<String, dynamic>),
       id: json['id'] as int?,
       cityName: json['name'] as String?,
       weather: (json['weather'] as List<dynamic>?)
@@ -23,6 +26,7 @@ Map<String, dynamic> _$WeatherResponseToJson(WeatherResponse instance) =>
       'id': instance.id,
       'name': instance.cityName,
       'weather': instance.weather,
+      'wind': instance.wind,
       'main': instance.main,
     };
 
@@ -34,6 +38,16 @@ Weather _$WeatherFromJson(Map<String, dynamic> json) => Weather(
 Map<String, dynamic> _$WeatherToJson(Weather instance) => <String, dynamic>{
       'main': instance.status,
       'description': instance.description,
+    };
+
+Wind _$WindFromJson(Map<String, dynamic> json) => Wind(
+      speed: (json['speed'] as num?)?.toDouble(),
+      deg: (json['deg'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$WindToJson(Wind instance) => <String, dynamic>{
+      'speed': instance.speed,
+      'deg': instance.deg,
     };
 
 Main _$MainFromJson(Map<String, dynamic> json) => Main(

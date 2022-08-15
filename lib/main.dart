@@ -7,6 +7,8 @@ import 'package:weather_app/app/di.dart';
 import 'package:weather_app/presentation/weather/cubit/weather_cubit.dart';
 import 'package:weather_app/presentation/weather/view/weather_view.dart';
 
+import 'app/const.dart';
+
 void main() async {
   initAppModel();
 
@@ -25,10 +27,10 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            canvasColor: Colors.blue[300],
+            canvasColor: ColorManager.mainColor,
             primarySwatch: Colors.teal,
             appBarTheme: AppBarTheme(
-                backgroundColor: Colors.blue[300],
+                backgroundColor: ColorManager.mainColor,
                 elevation: 0,
                 systemOverlayStyle: Platform.isAndroid
                     ? SystemUiOverlayStyle(
