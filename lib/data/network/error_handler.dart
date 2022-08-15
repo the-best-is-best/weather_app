@@ -100,10 +100,10 @@ class ResponseCode {
 }
 
 class ResponseMessage {
-  static String get _tryAgainLater => "try_again_later";
-  static String get _timeOut => "time_out";
-  static String get _connectSupport => "contact_support";
-  static String get _someThingWentWrong => "some_thing_went_wrong";
+  static String get _tryAgainLater => "Try again later";
+  static String get _timeOut => "Time out";
+  static String get _connectSupport => "Connect support";
+  static String get _someThingWentWrong => "Some thing went wrong";
   static String getMessage(DataRes codeStatus) {
     switch (codeStatus) {
       case DataRes.SUCCESS:
@@ -111,15 +111,15 @@ class ResponseMessage {
       case DataRes.NO_CONTENT:
         return "";
       case DataRes.BAD_REQUEST:
-        return "${"bad request"} , $_tryAgainLater";
+        return "${"Bad Request"} , $_tryAgainLater";
       case DataRes.UNAUTHORIZED:
-        return "auth_error";
+        return "Authorization failed";
       case DataRes.FORBIDDEN:
-        return "${"forbidden_request"} ,  $_tryAgainLater";
+        return "${"Forbidden"} ,  $_tryAgainLater";
       case DataRes.METHOD_NOT_ALLOWED:
-        return "${"method_not_allowed"} , $_connectSupport";
+        return "${"Method Not Allowed"} , $_connectSupport";
       case DataRes.NOT_FOUND:
-        return "${"page_not_found"} ,  $_connectSupport";
+        return "${"Page Not Found"} ,  $_connectSupport";
       case DataRes.INTERNAL_SERVER_ERROR:
         return "$_someThingWentWrong , $_connectSupport";
 

@@ -1,18 +1,20 @@
 import 'package:buildcondition/buildcondition.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
 import 'package:weather_app/app/const.dart';
+import 'package:weather_app/app/extensions/extension_build_context.dart';
 import 'package:weather_app/app/extensions/extension_num.dart';
-import 'package:weather_app/app/extensions/extention_date.dart';
+import 'package:weather_app/app/extensions/extension_date.dart';
 import 'package:weather_app/presentation/weather/cubit/weather_cubit.dart';
 import 'package:weather_icons/weather_icons.dart';
-
+import '../../../app/components/my_field.dart';
 import '../../../app/components/my_loading.dart';
-import '../../../gen/assets.gen.dart';
 import '../../../app/components/my_text.dart';
 import '../cubit/weather_states.dart';
+import '../widgets/my_drawer.dart';
+import '../widgets/my_sliver_app_bar.dart';
 
 class WeatherView extends StatelessWidget {
   const WeatherView({Key? key}) : super(key: key);
@@ -21,6 +23,7 @@ class WeatherView extends StatelessWidget {
   Widget build(BuildContext context) {
     WeatherCubit weatherCubit = WeatherCubit.get(context);
     return Scaffold(
+      drawer: MyDrawer(weatherCubit: weatherCubit),
       body: SafeArea(
         child: BlocConsumer<WeatherCubit, WeatherStates>(
           listener: (context, state) => true,
@@ -31,45 +34,22 @@ class WeatherView extends StatelessWidget {
                 builder: (context) {
                   return BuildCondition(
                     condition: state is! WeatherErrorStates,
-                    fallback: (context) => Center(
-                      child:
-                          MyText(text: (state as WeatherErrorStates).message),
+                    fallback: (context) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MyText(text: (state as WeatherErrorStates).message),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () => weatherCubit.getData(),
+                          child: const Text('Retry'),
+                        ),
+                      ],
                     ),
                     builder: (context) {
                       return CustomScrollView(
                         slivers: [
-                          SliverAppBar(
-                            leading: const SizedBox.shrink(),
-                            snap: true,
-                            pinned: true,
-                            floating: true,
-                            expandedHeight: 150.0,
-                            flexibleSpace: FlexibleSpaceBar(
-                              titlePadding: const EdgeInsets.only(left: 40.0),
-                              title: MyText(
-                                  text: weatherCubit.weatherModel!.cityName),
-                              background: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      MyText(
-                                        text: weatherCubit.weatherModel!.temp
-                                            .kelvinToCelsius(),
-                                        style: const TextStyle(fontSize: 50),
-                                      ),
-                                      Lottie.asset(
-                                          DateTime.now().isSunsetOrSunrise()
-                                              ? const $AssetsJsonGen().sun
-                                              : const $AssetsJsonGen().moon,
-                                          width: 150),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          MySliverAppBar(weatherCubit: weatherCubit),
                           SliverToBoxAdapter(
                             child: Padding(
                               padding: const EdgeInsets.only(
@@ -127,7 +107,7 @@ class WeatherView extends StatelessWidget {
                                               const SizedBox(width: 5),
                                               MyText(
                                                 text:
-                                                    '${weatherCubit.weatherModel!.humidity}',
+                                                    '${weatherCubit.weatherModel!.humidity} %',
                                                 style: const TextStyle(
                                                     fontSize: 15,
                                                     fontWeight:

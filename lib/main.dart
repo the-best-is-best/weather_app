@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:weather_app/app/di.dart';
 import 'package:weather_app/presentation/weather/cubit/weather_cubit.dart';
 import 'package:weather_app/presentation/weather/view/weather_view.dart';
@@ -11,7 +12,7 @@ import 'app/const.dart';
 
 void main() async {
   initAppModel();
-
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WeatherCubit(di())..getData(),
+      create: (context) => WeatherCubit(di(), di())..getData(),
       child: MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,

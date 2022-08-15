@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../data/data_src/remote_data_src.dart';
@@ -27,4 +28,5 @@ void initAppModel() {
 
   di.registerLazySingleton<GetWeatherByCountryNameUseCase>(
       () => GetWeatherByCountryNameUseCase(di()));
+  di.registerLazySingleton<GetStorage>(() => GetStorage());
 }
