@@ -12,6 +12,7 @@ import 'package:weather_icons/weather_icons.dart';
 import '../../../app/components/my_field.dart';
 import '../../../app/components/my_loading.dart';
 import '../../../app/components/my_text.dart';
+import '../../../main.dart';
 import '../cubit/weather_states.dart';
 import '../widgets/my_drawer.dart';
 import '../widgets/my_sliver_app_bar.dart';
@@ -34,17 +35,19 @@ class WeatherView extends StatelessWidget {
                 builder: (context) {
                   return BuildCondition(
                     condition: state is! WeatherErrorStates,
-                    fallback: (context) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        MyText(text: (state as WeatherErrorStates).message),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () => weatherCubit.getData(),
-                          child: const Text('Retry'),
-                        ),
-                      ],
+                    fallback: (context) => Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MyText(text: (state as WeatherErrorStates).message),
+                          const SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () => weatherCubit.getData(),
+                            child: const Text('Retry'),
+                          ),
+                        ],
+                      ),
                     ),
                     builder: (context) {
                       return CustomScrollView(
@@ -63,26 +66,35 @@ class WeatherView extends StatelessWidget {
                                             .kelvinToCelsius() +
                                         " / ${weatherCubit.weatherModel!.tempMax.kelvinToCelsius()}" +
                                         " Feels like ${weatherCubit.weatherModel!.feelsLike.kelvinToCelsius()}",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 15,
-                                        fontWeight: FontWeight.w300),
+                                        fontWeight: FontWeight.w300,
+                                        color: isDark == true
+                                            ? Colors.white
+                                            : null),
                                   ),
                                   const SizedBox(height: 10),
                                   MyText(
                                     text: DateTime.now().isSunsetOrSunrise()
                                         ? "Sun ${DateTime.now().toTime()}"
                                         : "Moon ${DateTime.now().toTime()}",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 15,
-                                        fontWeight: FontWeight.w300),
+                                        fontWeight: FontWeight.w300,
+                                        color: isDark == true
+                                            ? Colors.white
+                                            : null),
                                   ),
                                   const SizedBox(height: 10),
                                   MyText(
                                     text:
                                         weatherCubit.weatherModel!.description,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 15,
-                                        fontWeight: FontWeight.w300),
+                                        fontWeight: FontWeight.w300,
+                                        color: isDark == true
+                                            ? Colors.white
+                                            : null),
                                   ),
                                   const SizedBox(height: 10),
                                   SizedBox(

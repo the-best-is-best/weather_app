@@ -59,7 +59,7 @@ class MySliverAppBar extends StatelessWidget {
               text: 'Enter City Name',
               onSubmitted: ((value) {
                 if (value.isNotEmpty) {
-                  weatherCubit.searchWeather(value);
+                  weatherCubit.getDataByCountry(value);
                 }
               }),
             ),

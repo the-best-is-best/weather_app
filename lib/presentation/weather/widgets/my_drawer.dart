@@ -1,12 +1,20 @@
+import 'package:buildcondition/buildcondition.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:weather_app/app/const.dart';
 import 'package:weather_app/app/extensions/extension_build_context.dart';
+import 'package:weather_app/main.dart';
+import 'package:weather_app/presentation/weather/widgets/setting_bottom_sheet.dart';
 
 import '../../../app/components/my_field.dart';
 import '../../../app/components/my_text.dart';
 import '../../../app/di.dart';
 import '../cubit/weather_cubit.dart';
+import '../cubit/weather_states.dart';
+import 'functions/select_country.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({
@@ -45,14 +53,8 @@ class _MyDrawerState extends State<MyDrawer> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.settings,
-                      size: 30,
-                    ),
-                  ),
+                children: const [
+                  SettingBottomSheet(),
                 ],
               ),
             ),
@@ -92,14 +94,33 @@ class _MyDrawerState extends State<MyDrawer> {
                       trailing: SizedBox(width: 30),
                       title: MyText(text: 'Other Locations'),
                     ),
-                    const MyText(text: 'No other locations yet'),
+                    BuildCondition(
+                      condition:
+                          widget.weatherCubit.otherLocations.isNotEmpty &&
+                              widget.weatherCubit.selectedOtherLocation != null,
+                      builder: (context) {
+                        return GestureDetector(
+                          onTap: () {
+                            widget.weatherCubit.getDataByCountry(widget
+                                    .weatherCubit.otherLocations[
+                                widget.weatherCubit.selectedOtherLocation!]);
+                            context.back();
+                          },
+                          child: MyText(
+                              text: widget.weatherCubit.otherLocations[
+                                  widget.weatherCubit.selectedOtherLocation!]),
+                        );
+                      },
+                      fallback: (context) =>
+                          const MyText(text: 'No other locations yet'),
+                    ),
                     const SizedBox(height: 10),
                     ElevatedButton(
                         onPressed: () {
                           context.back();
-                          Scaffold.of(context).showBottomSheet(
-                            (context) => Stack(),
-                          );
+                          selectCountry(
+                              context: context,
+                              weatherCubit: widget.weatherCubit);
                         },
                         child: const MyText(text: 'Manage Locations')),
                   ],

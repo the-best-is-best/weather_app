@@ -9,3 +9,5 @@ class WeatherErrorStates extends WeatherStates {
 }
 
 class WeatherGetData extends WeatherStates {}
+
+class WeatherOtherLocationsChanged extends WeatherStates {}
