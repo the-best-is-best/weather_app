@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:weather_app/app/extensions/extension_build_context.dart';
@@ -35,8 +36,16 @@ class SettingBottomSheet extends StatelessWidget {
               ),
               ListTile(
                 title: const MyText(text: 'Dark Theme'),
+                leading: const Icon(Icons.brightness_high, size: 30),
                 trailing: Switch(
-                  value: isDark ?? false,
+                  value: isDark == null
+                      ? SchedulerBinding.instance.window.platformBrightness ==
+                              Brightness.dark
+                          ? true
+                          : false
+                      : isDark == true
+                          ? true
+                          : false,
                   onChanged: (value) {
                     isDark = value;
                     di<GetStorage>().write('isDark', value);
@@ -44,6 +53,22 @@ class SettingBottomSheet extends StatelessWidget {
                     context.back();
                   },
                 ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ListTile(
+                title: MyText(text: language!.toUpperCase()),
+                leading: const Icon(Icons.language, size: 30),
+                trailing: MyText(
+                  text: language == 'ar' ? 'EN' : 'AR',
+                ),
+                onTap: () {
+                  language = language == 'ar' ? 'en' : 'ar';
+                  di<GetStorage>().write('lang', language);
+                  Phoenix.rebirth(context);
+                  context.back();
+                },
               ),
             ]),
           ),

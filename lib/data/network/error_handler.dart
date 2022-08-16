@@ -1,6 +1,8 @@
 // ignore_for_file: constant_identifier_names
-
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:dio/dio.dart';
+import 'package:weather_app/main.dart';
 import 'error_response.dart';
 import 'failure.dart';
 
@@ -9,28 +11,37 @@ class ErrorHandler implements Exception {
   ErrorHandler.handle(dynamic error) {
     if (error is DioError) {
       // dio error from dio or api
-      failure = _handleError(error);
+      failure = _handleError(error)!;
     } else {
       // default error
-      failure = DataRes.DEFAULT.getFailure();
+      DataRes.DEFAULT.getFailure().then((value) => failure = value);
     }
   }
 
-  Failure _handleError(DioError error) {
+  Failure? _handleError(DioError error) {
     switch (error.type) {
       case DioErrorType.connectTimeout:
-        return DataRes.CONNECT_TIMEOUT.getFailure();
+        DataRes.CONNECT_TIMEOUT.getFailure().then((value) => value);
+        break;
       case DioErrorType.sendTimeout:
-        return DataRes.SEND_TIMEOUT.getFailure();
+        DataRes.SEND_TIMEOUT.getFailure().then((value) => value);
+        break;
+
       case DioErrorType.receiveTimeout:
-        return DataRes.RECEIVED_TIMEOUT.getFailure();
+        DataRes.RECEIVED_TIMEOUT.getFailure().then((value) => value);
+        break;
+
       case DioErrorType.response:
-        return responseError(error);
+        responseError(error);
+        break;
+
       case DioErrorType.cancel:
-        return DataRes.CANCEL.getFailure();
+        DataRes.CANCEL.getFailure().then((value) => value);
+        break;
 
       case DioErrorType.other:
-        return DataRes.DEFAULT.getFailure();
+        DataRes.DEFAULT.getFailure().then((value) => value);
+        break;
     }
   }
 }
@@ -54,8 +65,8 @@ enum DataRes {
 }
 
 extension DataResExtension on DataRes {
-  Failure getFailure() =>
-      Failure(ResponseCode.getCode(this), ResponseMessage.getMessage(this));
+  Future<Failure> getFailure() async => Failure(
+      ResponseCode.getCode(this), await ResponseMessage.getMessage(this));
 }
 
 class ResponseCode {
@@ -100,11 +111,31 @@ class ResponseCode {
 }
 
 class ResponseMessage {
-  static String get _tryAgainLater => "Try again later";
-  static String get _timeOut => "Time out";
-  static String get _connectSupport => "Connect support";
-  static String get _someThingWentWrong => "Some thing went wrong";
-  static String getMessage(DataRes codeStatus) {
+  static Future<String> get _tryAgainLater async {
+    return await AppLocalizations.delegate
+        .load(Locale(language!))
+        .then((value) => value.try_again_later);
+  }
+
+  static Future<String> get _timeOut async {
+    return await AppLocalizations.delegate
+        .load(Locale(language!))
+        .then((value) => value.time_out);
+  }
+
+  static Future<String> get _connectSupport async {
+    return await AppLocalizations.delegate
+        .load(Locale(language!))
+        .then((value) => value.contact_support);
+  }
+
+  static Future<String> get _someThingWentWrong async {
+    return await AppLocalizations.delegate
+        .load(Locale(language!))
+        .then((value) => value.some_thing_went_wrong);
+  }
+
+  static Future<String> getMessage(DataRes codeStatus) async {
     switch (codeStatus) {
       case DataRes.SUCCESS:
         return "";

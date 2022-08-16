@@ -32,8 +32,11 @@ dependencies:
   country_pickers: ^2.0.0
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
+  devicelocale: ^0.5.4
   dio: ^4.0.6
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   flutter_bloc: ^8.1.1
   flutter_phoenix: ^1.0.0
@@ -67,6 +70,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
+
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/json/

@@ -30,7 +30,7 @@ class RepositoriesImpl extends Repositories {
     } else {
       //failure
       // return either left
-      return Left(DataRes.NO_INTERNET_CONNECTION.getFailure());
+      return Left(await DataRes.NO_INTERNET_CONNECTION.getFailure());
     }
   }
 }

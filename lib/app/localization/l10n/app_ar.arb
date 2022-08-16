@@ -1,0 +1,20 @@
+{
+    "appTitle": "تطبيق الطقس",
+    "server_error": "خطأ في الخادم",
+    "error_try_again": "اعادة المحاولة",
+    "internet_error": "يرجى التحقق من خادم الإنترنت الخاص بك",
+    "ok": "حسناً",
+    "cancel": "Cancel",
+    "success": "نجح",
+    "bad_request": "طلب غير صالح",
+    "try_again_later": "حاول مرة أخرى في وقت لاحق",
+    "auth_error": "خطأ في المصادقة",
+    "forbidden_request": "طلب ممنوع",
+    "method_not_allowed": "الطريقة غير مسموحة",
+    "contact_support": "اتصل بالدعم",
+    "time_out": "نفذ الوقت",
+    "page_not_found": "الصفحة مفقودة",
+    "some_thing_went_wrong": "هناك خطأ ما",
+    "cache_error": "خطأ في ذاكرة التخزين المؤقت",
+    "feels_like": "يبدو بهذا"
+}

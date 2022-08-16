@@ -218,6 +218,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.1"
+  devicelocale:
+    dependency: "direct main"
+    description:
+      name: devicelocale
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.4"
   dio:
     dependency: "direct main"
     description:
@@ -286,6 +293,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_phoenix:
     dependency: "direct main"
     description:
@@ -295,6 +307,11 @@ packages:
     version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"

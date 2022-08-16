@@ -44,7 +44,9 @@ class WeatherView extends StatelessWidget {
                           const SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: () => weatherCubit.getData(),
-                            child: const Text('Retry'),
+                            child: MyText(
+                              text: context.strings().try_again_later,
+                            ),
                           ),
                         ],
                       ),
@@ -65,7 +67,7 @@ class WeatherView extends StatelessWidget {
                                     text: weatherCubit.weatherModel!.tempMin
                                             .kelvinToCelsius() +
                                         " / ${weatherCubit.weatherModel!.tempMax.kelvinToCelsius()}" +
-                                        " Feels like ${weatherCubit.weatherModel!.feelsLike.kelvinToCelsius()}",
+                                        " ${context.strings().feels_like} ${weatherCubit.weatherModel!.feelsLike.kelvinToCelsius()}",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w300,

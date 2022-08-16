@@ -1,0 +1,20 @@
+{
+    "appTitle": "Weather App",
+    "server_error": "Server Error",
+    "error_try_again": "try again",
+    "internet_error": "Please Check Your Internet",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "success": "Success",
+    "bad_request": "Bad request",
+    "try_again_later": "Try again later",
+    "auth_error": "Auth error",
+    "forbidden_request": "Forbidden request",
+    "method_not_allowed": "Method not allowed",
+    "contact_support": "Contact support",
+    "time_out": "Time Out",
+    "page_not_found": "Page not found",
+    "some_thing_went_wrong": "Some thing went wrong",
+    "cache_error": "Cache error",
+    "feels_like": "Feels like"
+}
