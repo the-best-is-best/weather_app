@@ -8,9 +8,6 @@ part of 'weather_response.dart';
 
 WeatherResponse _$WeatherResponseFromJson(Map<String, dynamic> json) =>
     WeatherResponse(
-      json['wind'] == null
-          ? null
-          : Wind.fromJson(json['wind'] as Map<String, dynamic>),
       id: json['id'] as int?,
       cityName: json['name'] as String?,
       weather: (json['weather'] as List<dynamic>?)
@@ -19,6 +16,12 @@ WeatherResponse _$WeatherResponseFromJson(Map<String, dynamic> json) =>
       main: json['main'] == null
           ? null
           : Main.fromJson(json['main'] as Map<String, dynamic>),
+      wind: json['wind'] == null
+          ? null
+          : Wind.fromJson(json['wind'] as Map<String, dynamic>),
+      dateTime: json['dt_txt'] == null
+          ? null
+          : DateTime.parse(json['dt_txt'] as String),
     );
 
 Map<String, dynamic> _$WeatherResponseToJson(WeatherResponse instance) =>
@@ -28,6 +31,7 @@ Map<String, dynamic> _$WeatherResponseToJson(WeatherResponse instance) =>
       'weather': instance.weather,
       'wind': instance.wind,
       'main': instance.main,
+      'dt_txt': instance.dateTime?.toIso8601String(),
     };
 
 Weather _$WeatherFromJson(Map<String, dynamic> json) => Weather(
@@ -41,8 +45,8 @@ Map<String, dynamic> _$WeatherToJson(Weather instance) => <String, dynamic>{
     };
 
 Wind _$WindFromJson(Map<String, dynamic> json) => Wind(
-      speed: (json['speed'] as num?)?.toDouble(),
-      deg: (json['deg'] as num?)?.toDouble(),
+      speed: json['speed'] as num?,
+      deg: json['deg'] as num?,
     );
 
 Map<String, dynamic> _$WindToJson(Wind instance) => <String, dynamic>{

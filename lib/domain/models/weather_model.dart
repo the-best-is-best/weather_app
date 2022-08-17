@@ -9,8 +9,9 @@ class WeatherModel {
   final num feelsLike;
   final num pressure;
   final num humidity;
-  final num? speed;
-  final num? deg;
+  final num speed;
+  final num deg;
+  final DateTime dateTime;
 
   WeatherModel({
     required this.id,
@@ -25,12 +26,6 @@ class WeatherModel {
     required this.humidity,
     required this.speed,
     required this.deg,
+    required this.dateTime,
   });
-}
-
-class Test {
-  final String n;
-  final String x;
-
-  Test(this.n, this.x);
 }

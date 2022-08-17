@@ -9,12 +9,15 @@ class WeatherResponse {
   final List<Weather>? weather;
   final Wind? wind;
   final Main? main;
-  WeatherResponse(
-    this.wind, {
+  @JsonKey(name: "dt_txt")
+  final DateTime? dateTime;
+  WeatherResponse({
     this.id,
     this.cityName,
     this.weather,
     this.main,
+    this.wind,
+    this.dateTime,
   });
   factory WeatherResponse.fromJson(Map<String, dynamic> json) =>
       _$WeatherResponseFromJson(json);

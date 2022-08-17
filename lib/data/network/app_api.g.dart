@@ -34,6 +34,27 @@ class _AppServicesClient implements AppServicesClient {
     return value;
   }
 
+  @override
+  Future<ForcastWeatherResponse> getFiveDaysThreeHoursForcastData(
+      {required cityName, lang = 'en', appId = Const.token}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'q': cityName,
+      r'lang': lang,
+      r'appid': appId
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ForcastWeatherResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'forecast',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ForcastWeatherResponse.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

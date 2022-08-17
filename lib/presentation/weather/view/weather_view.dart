@@ -14,6 +14,7 @@ import '../../../app/components/my_loading.dart';
 import '../../../app/components/my_text.dart';
 import '../../../main.dart';
 import '../cubit/weather_states.dart';
+import '../widgets/my_chart_weather.dart';
 import '../widgets/my_drawer.dart';
 import '../widgets/my_sliver_app_bar.dart';
 
@@ -65,9 +66,9 @@ class WeatherView extends StatelessWidget {
                                   const SizedBox(height: 50),
                                   MyText(
                                     text: weatherCubit.weatherModel!.tempMin
-                                            .kelvinToCelsius() +
-                                        " / ${weatherCubit.weatherModel!.tempMax.kelvinToCelsius()}" +
-                                        " ${context.strings().feels_like} ${weatherCubit.weatherModel!.feelsLike.kelvinToCelsius()}",
+                                            .kelvinToCelsiusString() +
+                                        " / ${weatherCubit.weatherModel!.tempMax.kelvinToCelsiusString()}" +
+                                        " ${context.strings().feels_like} ${weatherCubit.weatherModel!.feelsLike.kelvinToCelsiusString()}",
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w300,
@@ -166,7 +167,28 @@ class WeatherView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                  )
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Container(
+                                    padding: EdgeInsets.only(top: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        MyText(
+                                          text: 'forcast next 5 days'
+                                              .toUpperCase(),
+                                        ),
+                                        const Icon(
+                                          Icons.next_plan_outlined,
+                                          color: Colors.black45,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const MyChartWeather(),
+                                  const SizedBox(height: 50),
                                 ],
                               ),
                             ),

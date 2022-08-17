@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WeatherCubit(di(), di())
+      create: (context) => WeatherCubit(di(), di(), di())
         ..loadOtherLocations()
         ..getData(),
       child: MaterialApp(

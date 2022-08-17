@@ -17,6 +17,7 @@ extension HomeResponseMapper on WeatherResponse? {
         tempMax: this?.main?.feelsLike?.orEmpty() ?? 0,
         humidity: this?.main?.humidity.orEmpty() ?? 0,
         speed: this?.wind?.speed.orEmpty() ?? 0,
-        deg: this?.wind?.deg.orEmpty() ?? 0);
+        deg: this?.wind?.deg.orEmpty() ?? 0,
+        dateTime: this?.dateTime ?? DateTime.now());
   }
 }

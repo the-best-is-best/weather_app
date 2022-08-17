@@ -34,7 +34,8 @@ class MySliverAppBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MyText(
-                    text: weatherCubit.weatherModel!.temp.kelvinToCelsius(),
+                    text:
+                        weatherCubit.weatherModel!.temp.kelvinToCelsiusString(),
                     style: const TextStyle(fontSize: 50),
                   ),
                   Lottie.asset(

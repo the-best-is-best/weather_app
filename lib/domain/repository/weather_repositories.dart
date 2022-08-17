@@ -5,4 +5,6 @@ import '../../data/network/failure.dart';
 
 abstract class Repositories {
   Future<Either<Failure, WeatherModel>> getWetherByCityName(String cityName);
+  Future<Either<Failure, List<WeatherModel>>> getForcastWeatherByCityName(
+      String cityName);
 }
