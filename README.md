@@ -9,11 +9,9 @@
  
 ## images
 # Light Mode
-![Weather App1](github_assets/1.jpg)
-# Search
-![Weather App2](github_assets/2.jpg)
+![Weather App1](github_assets/1.png)
 # Dark Mode
-![Weather App3](github_assets/3.jpg)
+![Weather App3](github_assets/2.png)
 # Setting
 ![Weather App3](github_assets/6.png)
 # Add Another Location

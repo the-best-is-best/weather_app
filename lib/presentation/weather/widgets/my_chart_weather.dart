@@ -30,13 +30,10 @@ class MyChartWeather extends StatelessWidget {
               SplineSeries<WeatherModel, String>(
                   dataSource: weatherCubit.forcastWeatherModel!,
                   xValueMapper: (WeatherModel f, _) {
-                    //  var r = f.dateTime.toString().split(' ')[0].split('-')[2];
-                    //   var l = f.dateTime.toString().split(' ')[1].split(':')[0];
-                    var r = DateFormat("dd").format(f.dateTime);
-                    var l = DateFormat("HH").format(f.dateTime);
-                    print("r: $r, l: $l");
-                    var fandl = '$r-$l';
-                    return fandl;
+                    var day = DateFormat("dd").format(f.dateTime);
+                    var hour = DateFormat("HH").format(f.dateTime);
+                    var time = '$day-$hour';
+                    return time;
                   },
                   yValueMapper: (WeatherModel f, _) =>
                       f.temp.kelvinToCelsius()),
