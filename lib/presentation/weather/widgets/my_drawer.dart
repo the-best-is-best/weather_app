@@ -1,6 +1,7 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get_storage/get_storage.dart';
@@ -51,11 +52,31 @@ class _MyDrawerState extends State<MyDrawer> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
-                  SettingBottomSheet(),
-                ],
+              // child: Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: const [
+              //     SettingBottomSheet(),
+              //   ],
+              // ),
+              child: ListTile(
+                title: const MyText(text: 'Dark Theme'),
+                leading: const Icon(Icons.brightness_high, size: 30),
+                trailing: Switch(
+                  value: isDark == null
+                      ? SchedulerBinding.instance.window.platformBrightness ==
+                              Brightness.dark
+                          ? true
+                          : false
+                      : isDark == true
+                          ? true
+                          : false,
+                  onChanged: (value) {
+                    isDark = value;
+                    di<GetStorage>().write('isDark', value);
+                    Phoenix.rebirth(context);
+                    context.back();
+                  },
+                ),
               ),
             ),
             Padding(
@@ -70,23 +91,43 @@ class _MyDrawerState extends State<MyDrawer> {
                       title: MyText(text: 'Favorite Locations'),
                     ),
                     const SizedBox(height: 10),
-                    MyField(
-                      controller: _favoriteCountryController,
-                      weatherCubit: widget.weatherCubit,
-                      text: 'Enter City Name',
-                      onTap: () {
-                        context.showMyCountryPicker(
-                          onSelect: (Country country) async {
-                            await _storage.write('favCountry',
-                                "${country.name},${country.countryCode}");
-                            widget.weatherCubit.getData(
-                                country:
-                                    "${country.name},${country.countryCode}");
-                            if (!mounted) return;
-                            context.back();
-                          },
-                        );
-                      },
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 4,
+                          child: MyField(
+                            controller: _favoriteCountryController,
+                            weatherCubit: widget.weatherCubit,
+                            text: 'Enter City Name',
+                            onTap: () {
+                              context.showMyCountryPicker(
+                                onSelect: (Country country) async {
+                                  await _storage.write('favCountry',
+                                      "${country.name},${country.countryCode}");
+                                  widget.weatherCubit.getData(
+                                      country:
+                                          "${country.name},${country.countryCode}");
+                                  if (!mounted) return;
+                                  context.back();
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.check_circle,
+                              size: 30,
+                            ),
+                            onPressed: () {
+                              widget.weatherCubit.getData();
+                              context.back();
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 10),
                     const ListTile(

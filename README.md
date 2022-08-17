@@ -1,16 +1,22 @@
 # weather_app
 
-A new Flutter project.
+* Weather App.
+## video
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[<img src="github_assets/1.jpg">](https://youtu.be/rq7KmUQt8_I
+ "Now in Android: 21 or above")
+ 
+ 
+## images
+# Light Mode
+![Weather App1](github_assets/1.jpg)
+# Search
+![Weather App2](github_assets/2.jpg)
+# Dark Mode
+![Weather App3](github_assets/3.jpg)
+# Setting
+![Weather App3](github_assets/6.png)
+# Add Another Location
+![Weather App4](github_assets/4.jpg)
+# Add Another Location 2
+![Weather App5](github_assets/5.jpg)

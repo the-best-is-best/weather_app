@@ -58,6 +58,9 @@ void selectCountry(
                                 text: weatherCubit.otherLocations[index]),
                             onTap: () {
                               weatherCubit.changeSelectedOtherLocation(index);
+                              weatherCubit.getDataByCountry(
+                                  weatherCubit.otherLocations[
+                                      weatherCubit.selectedOtherLocation!]);
                               context.back();
                             },
                           );

@@ -54,22 +54,22 @@ class SettingBottomSheet extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              ListTile(
-                title: MyText(text: language!.toUpperCase()),
-                leading: const Icon(Icons.language, size: 30),
-                trailing: MyText(
-                  text: language == 'ar' ? 'EN' : 'AR',
-                ),
-                onTap: () {
-                  language = language == 'ar' ? 'en' : 'ar';
-                  di<GetStorage>().write('lang', language);
-                  Phoenix.rebirth(context);
-                  context.back();
-                },
-              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // ListTile(
+              //   title: MyText(text: language!.toUpperCase()),
+              //   leading: const Icon(Icons.language, size: 30),
+              //   trailing: MyText(
+              //     text: language == 'ar' ? 'EN' : 'AR',
+              //   ),
+              //   onTap: () {
+              //     language = language == 'ar' ? 'en' : 'ar';
+              //     di<GetStorage>().write('lang', language);
+              //     Phoenix.rebirth(context);
+              //     context.back();
+              //   },
+              // ),
             ]),
           ),
         );
