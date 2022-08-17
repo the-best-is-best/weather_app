@@ -3,7 +3,7 @@
 * Weather App.
 ## video
 
-[<img src="github_assets/1.jpg">](https://youtu.be/rq7KmUQt8_I
+[<img src="github_assets/1.jpg">](https://youtu.be/6nomEpn18vg
  "Now in Android: 21 or above")
  
  
