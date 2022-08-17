@@ -2,19 +2,14 @@ import 'package:buildcondition/buildcondition.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:weather_app/app/const.dart';
 import 'package:weather_app/app/extensions/extension_build_context.dart';
 import 'package:weather_app/main.dart';
-import 'package:weather_app/presentation/weather/widgets/setting_bottom_sheet.dart';
-
 import '../../../app/components/my_field.dart';
 import '../../../app/components/my_text.dart';
 import '../../../app/di.dart';
 import '../cubit/weather_cubit.dart';
-import '../cubit/weather_states.dart';
 import 'functions/select_country.dart';
 
 class MyDrawer extends StatefulWidget {

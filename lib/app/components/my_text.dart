@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/main.dart';
 
 class MyText extends StatelessWidget {
   const MyText({
@@ -14,7 +13,7 @@ class MyText extends StatelessWidget {
     return Text(
       text,
       textAlign: TextAlign.center,
-      style: style ?? TextStyle(fontSize: 20),
+      style: style ?? const TextStyle(fontSize: 20),
     );
   }
 }

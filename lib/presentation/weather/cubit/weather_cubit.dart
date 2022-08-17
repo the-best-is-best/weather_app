@@ -52,9 +52,7 @@ class WeatherCubit extends Cubit<WeatherStates> {
   }
 
   void addOtherLocation(String country) async {
-    if (otherLocations.contains(country)) {
-      return;
-    }
+    if (otherLocations.contains(country)) {}
     otherLocations.add(country);
     await _saveOtherLocations();
     selectedOtherLocation = otherLocations.length - 1;
@@ -83,7 +81,6 @@ class WeatherCubit extends Cubit<WeatherStates> {
     dataWeather.fold(
       (error) {
         emit(WeatherErrorStates(error.messages));
-        return;
       },
       (data) {
         weatherModel = data;
@@ -94,13 +91,12 @@ class WeatherCubit extends Cubit<WeatherStates> {
     dataForcast.fold(
       (error) {
         emit(WeatherErrorStates(error.messages));
-        return;
       },
       (data) {
         forcastWeatherModel = data;
+        emit(WeatherGetData());
       },
     );
-    emit(WeatherGetData());
   }
 
   void getDataByCountry(String country) async {
@@ -111,7 +107,6 @@ class WeatherCubit extends Cubit<WeatherStates> {
     data.fold(
       (error) {
         emit(WeatherErrorStates(error.messages));
-        return;
       },
       (data) {
         weatherModel = data;
@@ -122,12 +117,11 @@ class WeatherCubit extends Cubit<WeatherStates> {
     dataForcast.fold(
       (error) {
         emit(WeatherErrorStates(error.messages));
-        return;
       },
       (data) {
         forcastWeatherModel = data;
+        emit(WeatherGetData());
       },
     );
-    emit(WeatherGetData());
   }
 }

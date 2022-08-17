@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'error_handler.dart';
 import 'failure.dart';
 
-Failure? responseError(DioError error) {
-  DataRes.DEFAULT.getFailure().then((value) => value);
+Future<Failure> responseError(DioError error) async {
+  var failure = await DataRes.DEFAULT.getFailure();
+  return failure;
 }

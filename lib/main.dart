@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -7,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:weather_app/app/di.dart';
 import 'package:devicelocale/devicelocale.dart';
 import 'app/app.dart';
+import 'my_bloc_observer.dart';
 
 bool? isDark;
 String? language;
@@ -29,5 +29,7 @@ void main() async {
   } else {
     language = di<GetStorage>().read('lang');
   }
+  Bloc.observer = MyBlocObserver();
+
   runApp(Phoenix(child: const MyApp()));
 }

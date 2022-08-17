@@ -25,7 +25,8 @@ class MyChartWeather extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
           ),
           child: SfCartesianChart(
-            primaryXAxis: CategoryAxis(),
+            zoomPanBehavior: ZoomPanBehavior(enablePinching: true),
+            primaryXAxis: CategoryAxis(interval: 1),
             series: <ChartSeries<WeatherModel, String>>[
               SplineSeries<WeatherModel, String>(
                   dataSource: weatherCubit.forcastWeatherModel!,

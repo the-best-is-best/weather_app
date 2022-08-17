@@ -11,14 +11,18 @@ class ErrorHandler implements Exception {
   ErrorHandler.handle(dynamic error) {
     if (error is DioError) {
       // dio error from dio or api
-      failure = _handleError(error)!;
+      if (_handleError(error) != null) {
+        failure = Failure(404, "page not found");
+      } else {
+        DataRes.DEFAULT.getFailure().then((value) => failure = value);
+      }
     } else {
       // default error
       DataRes.DEFAULT.getFailure().then((value) => failure = value);
     }
   }
 
-  Failure? _handleError(DioError error) {
+  Future<Failure?>? _handleError(DioError error) async {
     switch (error.type) {
       case DioErrorType.connectTimeout:
         DataRes.CONNECT_TIMEOUT.getFailure().then((value) => value);
@@ -32,7 +36,7 @@ class ErrorHandler implements Exception {
         break;
 
       case DioErrorType.response:
-        responseError(error);
+        responseError(error).then((value) => value);
         break;
 
       case DioErrorType.cancel:
@@ -42,7 +46,12 @@ class ErrorHandler implements Exception {
       case DioErrorType.other:
         DataRes.DEFAULT.getFailure().then((value) => value);
         break;
+
+      default:
+        DataRes.DEFAULT.getFailure().then((value) => value);
+        break;
     }
+    return null;
   }
 }
 

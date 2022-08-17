@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/app/const.dart';
 import 'package:weather_app/app/di.dart';
 import 'package:weather_app/app/extensions/extension_build_context.dart';
 import 'package:weather_app/app/themes/theme_dark.dart';
@@ -12,7 +8,6 @@ import 'package:weather_app/presentation/weather/cubit/weather_cubit.dart';
 import 'package:weather_app/presentation/weather/view/weather_view.dart';
 import '../main.dart';
 import '../presentation/weather/cubit/weather_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
