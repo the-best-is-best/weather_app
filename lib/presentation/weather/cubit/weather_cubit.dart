@@ -86,6 +86,9 @@ class WeatherCubit extends Cubit<WeatherStates> {
         weatherModel = data;
       },
     );
+    if (weatherModel == null) {
+      return;
+    }
     var dataForcast = await getForcastWeatherByCountryNameUseCase
         .execute(favCountry ?? country);
     dataForcast.fold(
@@ -112,11 +115,15 @@ class WeatherCubit extends Cubit<WeatherStates> {
         weatherModel = data;
       },
     );
+    if (weatherModel == null) {
+      return;
+    }
     var dataForcast =
         await getForcastWeatherByCountryNameUseCase.execute(country);
     dataForcast.fold(
       (error) {
         emit(WeatherErrorStates(error.messages));
+        return;
       },
       (data) {
         forcastWeatherModel = data;

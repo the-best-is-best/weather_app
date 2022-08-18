@@ -1,8 +1,6 @@
 // ignore_for_file: constant_identifier_names
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:dio/dio.dart';
-import 'package:weather_app/main.dart';
 import 'error_response.dart';
 import 'failure.dart';
 
@@ -11,47 +9,29 @@ class ErrorHandler implements Exception {
   ErrorHandler.handle(dynamic error) {
     if (error is DioError) {
       // dio error from dio or api
-      if (_handleError(error) != null) {
-        failure = Failure(404, "page not found");
-      } else {
-        DataRes.DEFAULT.getFailure().then((value) => failure = value);
-      }
+      failure = _handleError(error);
     } else {
       // default error
-      DataRes.DEFAULT.getFailure().then((value) => failure = value);
+      failure = DataRes.DEFAULT.getFailure();
     }
   }
 
-  Future<Failure?>? _handleError(DioError error) async {
+  Failure _handleError(DioError error) {
     switch (error.type) {
       case DioErrorType.connectTimeout:
-        DataRes.CONNECT_TIMEOUT.getFailure().then((value) => value);
-        break;
+        return DataRes.CONNECT_TIMEOUT.getFailure();
       case DioErrorType.sendTimeout:
-        DataRes.SEND_TIMEOUT.getFailure().then((value) => value);
-        break;
-
+        return DataRes.SEND_TIMEOUT.getFailure();
       case DioErrorType.receiveTimeout:
-        DataRes.RECEIVED_TIMEOUT.getFailure().then((value) => value);
-        break;
-
+        return DataRes.RECEIVED_TIMEOUT.getFailure();
       case DioErrorType.response:
-        responseError(error).then((value) => value);
-        break;
-
+        return responseError(error);
       case DioErrorType.cancel:
-        DataRes.CANCEL.getFailure().then((value) => value);
-        break;
+        return DataRes.CANCEL.getFailure();
 
       case DioErrorType.other:
-        DataRes.DEFAULT.getFailure().then((value) => value);
-        break;
-
-      default:
-        DataRes.DEFAULT.getFailure().then((value) => value);
-        break;
+        return DataRes.DEFAULT.getFailure();
     }
-    return null;
   }
 }
 
@@ -74,8 +54,8 @@ enum DataRes {
 }
 
 extension DataResExtension on DataRes {
-  Future<Failure> getFailure() async => Failure(
-      ResponseCode.getCode(this), await ResponseMessage.getMessage(this));
+  Failure getFailure() =>
+      Failure(ResponseCode.getCode(this), ResponseMessage.getMessage(this));
 }
 
 class ResponseCode {
@@ -120,46 +100,26 @@ class ResponseCode {
 }
 
 class ResponseMessage {
-  static Future<String> get _tryAgainLater async {
-    return await AppLocalizations.delegate
-        .load(Locale(language!))
-        .then((value) => value.try_again_later);
-  }
-
-  static Future<String> get _timeOut async {
-    return await AppLocalizations.delegate
-        .load(Locale(language!))
-        .then((value) => value.time_out);
-  }
-
-  static Future<String> get _connectSupport async {
-    return await AppLocalizations.delegate
-        .load(Locale(language!))
-        .then((value) => value.contact_support);
-  }
-
-  static Future<String> get _someThingWentWrong async {
-    return await AppLocalizations.delegate
-        .load(Locale(language!))
-        .then((value) => value.some_thing_went_wrong);
-  }
-
-  static Future<String> getMessage(DataRes codeStatus) async {
+  static String get _tryAgainLater => "try again later";
+  static String get _timeOut => "time out";
+  static String get _connectSupport => "connect support";
+  static String get _someThingWentWrong => "some thing went wrong";
+  static String getMessage(DataRes codeStatus) {
     switch (codeStatus) {
       case DataRes.SUCCESS:
         return "";
       case DataRes.NO_CONTENT:
         return "";
       case DataRes.BAD_REQUEST:
-        return "${"Bad Request"} , $_tryAgainLater";
+        return "${"bad request"} , $_tryAgainLater";
       case DataRes.UNAUTHORIZED:
-        return "Authorization failed";
+        return "auth error , $_tryAgainLater";
       case DataRes.FORBIDDEN:
-        return "${"Forbidden"} ,  $_tryAgainLater";
+        return "${"forbidden request"} ,  $_tryAgainLater";
       case DataRes.METHOD_NOT_ALLOWED:
-        return "${"Method Not Allowed"} , $_connectSupport";
+        return "${"method not allowed"} , $_connectSupport";
       case DataRes.NOT_FOUND:
-        return "${"Page Not Found"} ,  $_connectSupport";
+        return "${"page not found"} ,  $_connectSupport";
       case DataRes.INTERNAL_SERVER_ERROR:
         return "$_someThingWentWrong , $_connectSupport";
 
@@ -177,7 +137,7 @@ class ResponseMessage {
         return "${"cache error"} , $_tryAgainLater";
 
       case DataRes.NO_INTERNET_CONNECTION:
-        return "NO INTERNET CONNECTION";
+        return "No internet connection";
       default:
         return "$_someThingWentWrong , $_connectSupport";
     }

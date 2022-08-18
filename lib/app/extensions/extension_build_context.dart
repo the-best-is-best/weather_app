@@ -18,22 +18,9 @@ extension ExtensionBuildContext on BuildContext {
     Navigator.push(this, MaterialPageRoute(builder: (context) => secondPage));
   }
 
-  Future<DateTime?> showMyDatePicker() async {
-    return await showDatePicker(
-        context: this,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(DateTime.now().year + 10));
-  }
-
-  Future<TimeOfDay?> showMyTimePicker() async {
-    return await showTimePicker(context: this, initialTime: TimeOfDay.now());
-  }
-
   void showMyCountryPicker({required ValueChanged<Country> onSelect}) {
     showCountryPicker(
       context: this,
-      favorite: ['eg,us'],
       onSelect: onSelect,
     );
   }

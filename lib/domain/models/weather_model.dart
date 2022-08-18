@@ -11,8 +11,9 @@ class WeatherModel {
   final num humidity;
   final num speed;
   final num deg;
-  final DateTime dateTime;
-
+  final DateTime? dateTime;
+  final DateTime? sunrise;
+  final DateTime? sunset;
   WeatherModel({
     required this.id,
     required this.cityName,
@@ -27,5 +28,7 @@ class WeatherModel {
     required this.speed,
     required this.deg,
     required this.dateTime,
+    this.sunrise,
+    this.sunset,
   });
 }

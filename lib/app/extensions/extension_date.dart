@@ -2,9 +2,8 @@ import 'package:intl/intl.dart';
 
 extension ExtensionDouble on DateTime {
   // Sunrise or sunset
-  bool isSunsetOrSunrise() {
-    String date = DateFormat("HH:mm a").format(this);
-    if (date.contains("AM")) {
+  bool isSunsetOrSunrise(DateTime sunrise) {
+    if (isAfter(sunrise)) {
       // return "Moon: $date";
       return false;
     } else {
@@ -14,6 +13,7 @@ extension ExtensionDouble on DateTime {
   }
 
   String toTime() {
+    print(this);
     String date = DateFormat("HH:mm a").format(this);
     return date;
   }

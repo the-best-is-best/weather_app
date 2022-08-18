@@ -19,19 +19,23 @@ WeatherResponse _$WeatherResponseFromJson(Map<String, dynamic> json) =>
       wind: json['wind'] == null
           ? null
           : Wind.fromJson(json['wind'] as Map<String, dynamic>),
-      dateTime: json['dt_txt'] == null
+      dateTime: json['dt'] as int,
+      cod: json['cod'] as int?,
+      sunriseOrSunset: json['sys'] == null
           ? null
-          : DateTime.parse(json['dt_txt'] as String),
+          : SunriseOrSunset.fromJson(json['sys'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$WeatherResponseToJson(WeatherResponse instance) =>
     <String, dynamic>{
+      'cod': instance.cod,
       'id': instance.id,
       'name': instance.cityName,
       'weather': instance.weather,
       'wind': instance.wind,
       'main': instance.main,
-      'dt_txt': instance.dateTime?.toIso8601String(),
+      'dt': instance.dateTime,
+      'sys': instance.sunriseOrSunset,
     };
 
 Weather _$WeatherFromJson(Map<String, dynamic> json) => Weather(
@@ -70,4 +74,16 @@ Map<String, dynamic> _$MainToJson(Main instance) => <String, dynamic>{
       'temp_max': instance.tempMax,
       'feels_like': instance.feelsLike,
       'humidity': instance.humidity,
+    };
+
+SunriseOrSunset _$SunriseOrSunsetFromJson(Map<String, dynamic> json) =>
+    SunriseOrSunset(
+      json['sunrise'] as int?,
+      json['sunset'] as int?,
+    );
+
+Map<String, dynamic> _$SunriseOrSunsetToJson(SunriseOrSunset instance) =>
+    <String, dynamic>{
+      'sunrise': instance.sunrise,
+      'sunset': instance.sunset,
     };

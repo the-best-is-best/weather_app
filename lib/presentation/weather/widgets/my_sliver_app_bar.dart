@@ -39,7 +39,8 @@ class MySliverAppBar extends StatelessWidget {
                     style: const TextStyle(fontSize: 50),
                   ),
                   Lottie.asset(
-                      DateTime.now().isSunsetOrSunrise()
+                      weatherCubit.weatherModel!.dateTime!.isSunsetOrSunrise(
+                              weatherCubit.weatherModel!.sunset!)
                           ? const $AssetsJsonGen().sun
                           : const $AssetsJsonGen().moon,
                       width: 150),

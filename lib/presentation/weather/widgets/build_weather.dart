@@ -34,9 +34,10 @@ class BuildWeather extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         MyText(
-          text: DateTime.now().isSunsetOrSunrise()
-              ? "Sun ${DateTime.now().toTime()}"
-              : "Moon ${DateTime.now().toTime()}",
+          text: weatherCubit.weatherModel!.dateTime!
+                  .isSunsetOrSunrise(weatherCubit.weatherModel!.sunset!)
+              ? "Sun ${weatherCubit.weatherModel!.dateTime!.toTime()}"
+              : "Moon ${weatherCubit.weatherModel!.dateTime!.toTime()}",
           style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w300,

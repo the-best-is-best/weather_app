@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:weather_app/app/extensions/extesnsion_string.dart';
 import 'package:weather_app/data/data_src/remote_data_src.dart';
 import 'package:weather_app/data/mapper/weather_response_mapper.dart';
 import 'package:weather_app/data/network/network_info.dart';
@@ -14,11 +15,16 @@ Future<Either<Failure, WeatherModel>> getWeatherByCityNameImpl(
   if (await networkInfo.isConnected) {
     try {
       var response = await remoteDataSrc.getWeatherByCityName(cityName);
-
-      //success
-      // return either right
-      // return data
-      return Right(response.toDomain());
+      if (response.cod!.toInt() >= 200 && response.cod!.toInt() <= 299) {
+        //success
+        // return either right
+        // return data
+        return Right(response.toDomain());
+      } else {
+        // return either left
+        // return error
+        return Left(Failure(response.cod!.toInt(), "Error server"));
+      }
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
     }

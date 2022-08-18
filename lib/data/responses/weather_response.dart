@@ -3,21 +3,26 @@ part 'weather_response.g.dart';
 
 @JsonSerializable()
 class WeatherResponse {
+  final int? cod;
   final int? id;
   @JsonKey(name: "name")
   final String? cityName;
   final List<Weather>? weather;
   final Wind? wind;
   final Main? main;
-  @JsonKey(name: "dt_txt")
-  final DateTime? dateTime;
+  @JsonKey(name: "dt")
+  final int dateTime;
+  @JsonKey(name: "sys")
+  final SunriseOrSunset? sunriseOrSunset;
   WeatherResponse({
     this.id,
     this.cityName,
     this.weather,
     this.main,
     this.wind,
-    this.dateTime,
+    required this.dateTime,
+    this.cod,
+    this.sunriseOrSunset,
   });
   factory WeatherResponse.fromJson(Map<String, dynamic> json) =>
       _$WeatherResponseFromJson(json);
@@ -62,5 +67,16 @@ class Main {
       this.tempMax);
   factory Main.fromJson(Map<String, dynamic> json) {
     return _$MainFromJson(json);
+  }
+}
+
+@JsonSerializable()
+class SunriseOrSunset {
+  final int? sunrise;
+  final int? sunset;
+
+  SunriseOrSunset(this.sunrise, this.sunset);
+  factory SunriseOrSunset.fromJson(Map<String, dynamic> json) {
+    return _$SunriseOrSunsetFromJson(json);
   }
 }
