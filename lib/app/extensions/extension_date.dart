@@ -13,7 +13,6 @@ extension ExtensionDouble on DateTime {
   }
 
   String toTime() {
-    print(this);
     String date = DateFormat("HH:mm a").format(this);
     return date;
   }
